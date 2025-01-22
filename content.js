@@ -2,10 +2,12 @@ var observer;
 
 function removePosts() {
   chrome.storage.local.get(['remove_unofficial', 'remove_official'], (data) => {
-    const posts = document.querySelectorAll('.post')
+    const posts = document.querySelectorAll('._post_content')
     for (const post of posts) {
       if (data.remove_unofficial) {
         const firstComment = post.querySelector('.reply')
+        // console.log('пост с комментами')
+        // console.log(firstComment)
         if (firstComment) {
           const authorHighlighted = firstComment.querySelector('.author_highlighted')
           const commentText = firstComment.querySelector('.wall_reply_text')
@@ -18,7 +20,18 @@ function removePosts() {
 
       }
       if (data.remove_official) {
-        // todo
+        const label = post.querySelector('div.PostHeaderSubtitle__item')
+        const labelLink = post.querySelector('a.PostHeaderSubtitle__item')
+        if (label) {
+          if (label.innerHTML.indexOf('Реклама') >= 0) {
+            console.log('рекламный пост удален')
+            post.remove()
+          }
+        }
+        if(labelLink) {
+          console.log('рекламный пост удален')
+          post.remove()
+        }
       }
     }
 
