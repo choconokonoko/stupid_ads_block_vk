@@ -6,8 +6,6 @@ function removePosts() {
     for (const post of posts) {
       if (data.remove_unofficial) {
         const firstComment = post.querySelector('.reply')
-        // console.log('пост с комментами')
-        // console.log(firstComment)
         if (firstComment) {
           const authorHighlighted = firstComment.querySelector('.author_highlighted')
           const commentText = firstComment.querySelector('.wall_reply_text')
